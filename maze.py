@@ -296,7 +296,7 @@ class Maze:
       self.add_potential(wall, last_perp, last_perp_pnt)
 
   def generate_all_walls(self, same_branch_probability):
-    for step in self.gen_each_wall(same_branch_probability):
+    for step in self.generate_each_wall(same_branch_probability):
       pass
 
   def generate_each_wall(self, same_branch_probability):

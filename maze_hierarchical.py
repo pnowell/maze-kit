@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 from PIL import Image
 from maze import Maze
@@ -121,7 +121,7 @@ master_maze.initialize_state_from_edges()
 canvas = master_maze.create_canvas(PIXELS_PER_SQUARE, COLOR_LIST)
 
 # Create the image into which we'll paste the maze
-full_canvas = Canvas(size=Canvas.LETTER, dpi=300, color=Canvas.WHITE)
+full_canvas = Canvas(size=Canvas.LETTER, dpi=300, color=Canvas.COLORS['WHITE'])
 
 new_size = canvas.compute_max_resize(
     full_canvas.width * MAX_IMAGE_SIZE, full_canvas.height * MAX_IMAGE_SIZE)
