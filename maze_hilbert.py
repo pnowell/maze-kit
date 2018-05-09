@@ -72,38 +72,36 @@ class DrawState:
           COLOR_LIST[self.color_index])
 
 
-def draw_hilbert_maze():
-  canvas = Canvas(IMAGE_SIZE, IMAGE_SIZE)
-
-  image_xform = (
-      xform.translate(0.5, 0.5)
-      * xform.scale(1. * GRID_SIZE, 1. * GRID_SIZE))
-
-  # Populate the stack with all levels
-  s = []
-  size = GRID_SIZE
-  color_index = 0
-  level = 0
-  while size >= 4:
-    s.append(DrawState(level, color_index, image_xform))
-    size = size / 2
-    level = level + 1
-    color_index = (color_index + 1) % len(COLOR_LIST)
-
-  # Iterate until there's nothing left in the stack
-  while s:
-    state = s.pop()
-
-    # If we're not at the correct level, push back all the children of this
-    # state and move on.
-    if state.level > 0:
-      for child_xform in CHILD_XFORMS:
-        s.append(state.create_child_state(child_xform))
-    else:
-      # Otherwise draw the current state
-      state.draw_pattern(canvas)
-
-  canvas.save("hilbert.png")
 
 
-draw_hilbert_maze()
+canvas = Canvas(IMAGE_SIZE, IMAGE_SIZE)
+
+image_xform = (
+    xform.translate(0.5, 0.5)
+    * xform.scale(1. * GRID_SIZE, 1. * GRID_SIZE))
+
+# Populate the stack with all levels
+s = []
+size = GRID_SIZE
+color_index = 0
+level = 0
+while size >= 4:
+  s.append(DrawState(level, color_index, image_xform))
+  size = size / 2
+  level = level + 1
+  color_index = (color_index + 1) % len(COLOR_LIST)
+
+# Iterate until there's nothing left in the stack
+while s:
+  state = s.pop()
+
+  # If we're not at the correct level, push back all the children of this
+  # state and move on.
+  if state.level > 0:
+    for child_xform in CHILD_XFORMS:
+      s.append(state.create_child_state(child_xform))
+  else:
+    # Otherwise draw the current state
+    state.draw_pattern(canvas)
+
+canvas.save("images/maze_hilbert.png")
